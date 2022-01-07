@@ -1,0 +1,32 @@
+version: '3.7'
+
+services:
+  http-proxy:
+    build:
+      context: box/nginx
+    restart: unless-stopped
+    depends_on:
+      - app
+      - docs
+    ports:
+      - "80:80"
+
+  app:
+    build:
+      context: .
+      target: dev
+    restart: unless-stopped
+    volumes:
+      - .:/app
+    environment:
+      - COMPOSER_CACHE_DIR=/app/var/composer
+    env_file:
+      - .env
+
+  docs:
+    image: swaggerapi/swagger-ui
+    volumes:
+      - ./docs/estimate.openapi.yml:/app/estimate.openapi.yml
+    environment:
+      - LAYOUT=BaseLayout
+      - SWAGGER_JSON=/app/estimate.openapi.yml
