@@ -1,6 +1,6 @@
 <?php declare(strict_types=1);
 
-namespace Mrkrash\Estimate;
+namespace Mrkrash\Base;
 
 use DI\DependencyException;
 use DI\NotFoundException;
@@ -8,7 +8,7 @@ use JsonException;
 use Laminas\Diactoros\Response\JsonResponse;
 use League\Route\Http\Exception as HttpException;
 use League\Route\Router;
-use Mrkrash\Estimate\Model\InvalidDataException;
+use Mrkrash\Base\Model\InvalidDataException;
 use Psr\Container\ContainerInterface;
 use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Http\Message\ServerRequestInterface as Request;

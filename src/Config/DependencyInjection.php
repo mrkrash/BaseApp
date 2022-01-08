@@ -1,6 +1,6 @@
 <?php declare(strict_types=1);
 
-namespace Mrkrash\Estimate\Config;
+namespace Mrkrash\Base\Config;
 
 use DI\Container;
 use DI\ContainerBuilder;
@@ -9,7 +9,7 @@ use JsonException;
 use League\Route\Router;
 use Middlewares\BasicAuthentication;
 use Middlewares\ContentType;
-use Mrkrash\Estimate\App;
+use Mrkrash\Base\App;
 use Psr\Log\LoggerInterface;
 use RedBeanPHP\ToolBox;
 use function DI\create;
@@ -31,7 +31,7 @@ class DependencyInjection
             ),
             ContentType::class => create()->constructor(['json'])->method("errorResponse"),
             ToolBox::class => factory(ToolBoxFactory::class),
-            LoggerInterface::class => factory('\Mrkrash\Estimate\logger'),
+            LoggerInterface::class => factory('\Mrkrash\Base\logger'),
             Router::class => factory(RouterFactory::class),
         ]);
 

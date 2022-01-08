@@ -1,6 +1,6 @@
 <?php declare(strict_types=1);
 
-namespace Mrkrash\Estimate;
+namespace Mrkrash\Base;
 
 use Laminas\Diactoros\Response\JsonResponse;
 use Laminas\Diactoros\ServerRequestFactory;

@@ -1,6 +1,6 @@
 <?php declare(strict_types=1);
 
-namespace Mrkrash\Estimate\Config;
+namespace Mrkrash\Base\Config;
 
 use Assert\Assert;
 use League\Route\Router as LeagueRouter;
@@ -8,7 +8,7 @@ use League\Route\Strategy\ApplicationStrategy;
 use Middlewares\BasicAuthentication;
 use Middlewares\ContentType;
 use Middlewares\JsonPayload;
-use Mrkrash\Estimate\Http\RouteHandler;
+use Mrkrash\Base\Http\RouteHandler;
 use Psr\Container\ContainerExceptionInterface;
 use Psr\Container\ContainerInterface as Container;
 use Psr\Container\NotFoundExceptionInterface;

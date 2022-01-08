@@ -1,6 +1,6 @@
 <?php
 
-namespace Mrkrash\Estimate\Model;
+namespace Mrkrash\Base\Model;
 
 use Assert\Assert;
 use Assert\LazyAssertion;

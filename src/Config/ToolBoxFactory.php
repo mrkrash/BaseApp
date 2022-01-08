@@ -1,10 +1,10 @@
 <?php
 
-namespace Mrkrash\Estimate\Config;
+namespace Mrkrash\Base\Config;
 
-define('REDBEAN_MODEL_PREFIX', 'Mrkrash\\Estimate\\Model\\');
+define('REDBEAN_MODEL_PREFIX', 'Mrkrash\\Base\\Model\\');
 
-use Mrkrash\Estimate\Db\MigrationLogger;
+use Mrkrash\Base\Db\MigrationLogger;
 use RedBeanPHP\R;
 use RedBeanPHP\RedException;
 use RedBeanPHP\ToolBox;
@@ -12,7 +12,7 @@ use RedBeanPHP\ToolBox;
 class ToolBoxFactory
 {
     protected ToolBox $toolbox;
-    private const DSN = 'sqlite:' . __DIR__ . '/../../db/estimate.db';
+    private const DSN = 'sqlite:' . __DIR__ . '/../../db/Base.db';
 
     /**
      * @throws RedException

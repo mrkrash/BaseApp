@@ -1,6 +1,6 @@
 <?php declare(strict_types=1);
 
-namespace Mrkrash\Estimate\Model;
+namespace Mrkrash\Base\Model;
 
 use Assert\InvalidArgumentException;
 use Assert\LazyAssertionException;

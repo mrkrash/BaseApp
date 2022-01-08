@@ -1,9 +1,9 @@
 <?php
 
-namespace Mrkrash\Estimate\Http\RouteHandler;
+namespace Mrkrash\Base\Http\RouteHandler;
 
 use Laminas\Diactoros\Response\JsonResponse;
-use Mrkrash\Estimate\Http\RouteHandler;
+use Mrkrash\Base\Http\RouteHandler;
 use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Http\Message\ServerRequestInterface as Request;
 
@@ -13,7 +13,7 @@ class Home implements RouteHandler
     {
         return new JsonResponse([
             'links' => [
-                'estimates' => $request->getUri() . 'estimates',
+                'Bases' => $request->getUri() . 'Bases',
                 'docs' => $request->getUri() . 'docs',
             ],
         ]);

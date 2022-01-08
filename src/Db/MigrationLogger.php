@@ -1,6 +1,6 @@
 <?php
 
-namespace Mrkrash\Estimate\Db;
+namespace Mrkrash\Base\Db;
 
 class MigrationLogger implements \RedBeanPHP\Logger
 {

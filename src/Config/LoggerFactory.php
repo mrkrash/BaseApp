@@ -1,6 +1,6 @@
 <?php declare(strict_types=1);
 
-namespace Mrkrash\Estimate\Config;
+namespace Mrkrash\Base\Config;
 
 use Monolog\Formatter\LineFormatter as MonologLineFormatter;
 use Monolog\Handler\StreamHandler as MonologStreamHandler;

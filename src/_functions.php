@@ -1,11 +1,11 @@
 <?php declare(strict_types=1);
 
-namespace Mrkrash\Estimate;
+namespace Mrkrash\Base;
 
 use Assert\Assert;
 use DateTimeImmutable;
 use ErrorException;
-use Mrkrash\Estimate\Model\InvalidDataException;
+use Mrkrash\Base\Model\InvalidDataException;
 use Lcobucci\Clock\Clock;
 use Lcobucci\Clock\SystemClock;
 use Psr\Log\LoggerInterface as Logger;

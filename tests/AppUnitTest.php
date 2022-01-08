@@ -1,9 +1,9 @@
 <?php declare(strict_types = 1);
 
-namespace Mrkrash\Estimate;
+namespace Mrkrash\Base;
 
 use Exception;
-use Mrkrash\Estimate\Model\InvalidDataException;
+use Mrkrash\Base\Model\InvalidDataException;
 use League\Route\Http\Exception as HttpException;
 use League\Route\Router;
 use PHPUnit\Framework\MockObject\MockObject;
