@@ -1,6 +1,7 @@
 {
     "require": {
         "beberlei/assert": "v3.3.2",
+        "doctrine/instantiator": "1.4.0",
         "gabordemooij/redbean": "dev-master",
         "laminas/laminas-diactoros": "2.8.0",
         "laminas/laminas-httphandlerrunner": "2.1.0",

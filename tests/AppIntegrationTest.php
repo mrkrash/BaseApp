@@ -2,6 +2,9 @@
 
 namespace Mrkrash\Estimate;
 
+use DI\DependencyException;
+use DI\NotFoundException;
+use JsonException;
 use Laminas\Diactoros\ServerRequestFactory;
 use PHPUnit\Framework\TestCase;
 use function PHPUnit\Framework\assertSame;
@@ -12,6 +15,11 @@ use function PHPUnit\Framework\assertSame;
  */
 class AppIntegrationTest extends TestCase
 {
+    /**
+     * @throws DependencyException
+     * @throws JsonException
+     * @throws NotFoundException
+     */
     public function testBootstrap(): void
     {
         $this->expectNotToPerformAssertions();

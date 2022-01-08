@@ -8,13 +8,11 @@ use JsonException;
 use Laminas\Diactoros\Response\JsonResponse;
 use League\Route\Http\Exception as HttpException;
 use League\Route\Router;
-use Mrkrash\Estimate\Db\MigrationLogger;
 use Mrkrash\Estimate\Model\InvalidDataException;
 use Psr\Container\ContainerInterface;
 use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Http\Message\ServerRequestInterface as Request;
 use Psr\Http\Server\RequestHandlerInterface;
-use RedBeanPHP\R;
 
 class App implements ContainerInterface, RequestHandlerInterface
 {
@@ -33,13 +31,6 @@ class App implements ContainerInterface, RequestHandlerInterface
         $container = (new Config\DependencyInjection())();
         $app = $container->get(__CLASS__);
         $app->container = $container;
-
-        // Initialize DB
-        R::setup('sqlite:db/estimate.db');
-        R::getDatabaseAdapter()
-            ->getDatabase()
-            ->setLogger((new MigrationLogger(sprintf('db/migration_%s.sql', date('Y-m-d')))))
-            ->setEnableLogging(true);
 
         return $app;
     }

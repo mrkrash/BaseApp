@@ -84,7 +84,7 @@ function now(Clock $newClock = null): DateTimeImmutable
     }
 
     if (! $clock) {
-        $clock = new SystemClock();
+        $clock = new SystemClock(new \DateTimeZone('Europe/Rome'));
     }
 
     return $clock->now();

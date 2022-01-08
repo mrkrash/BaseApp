@@ -11,7 +11,7 @@ use Middlewares\BasicAuthentication;
 use Middlewares\ContentType;
 use Mrkrash\Estimate\App;
 use Psr\Log\LoggerInterface;
-use RedBeanPHP\R;
+use RedBeanPHP\ToolBox;
 use function DI\create;
 use function DI\factory;
 use function Env\env;
@@ -30,6 +30,7 @@ class DependencyInjection
                 json_decode(env('AUTH_USERS'), true, 512, JSON_THROW_ON_ERROR)
             ),
             ContentType::class => create()->constructor(['json'])->method("errorResponse"),
+            ToolBox::class => factory(ToolBoxFactory::class),
             LoggerInterface::class => factory('\Mrkrash\Estimate\logger'),
             Router::class => factory(RouterFactory::class),
         ]);
