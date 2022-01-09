@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace Mrkrash\Base\Model;
 
@@ -94,7 +94,7 @@ class ItemDataMapper
             'name' => $bean->name,
             'description' => $bean->description ?: null,
             'deletedAt' => $bean->deleted_at ?: null,
-        ])->withId($bean->id)->withCreatedAt($bean->created_at);
+        ])->withId((int) $bean->id)->withCreatedAt($bean->created_at);
     }
 
     private function populateData(OODBBean $bean, Item $item): OODBBean

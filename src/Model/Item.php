@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace Mrkrash\Base\Model;
 
@@ -28,6 +28,7 @@ class Item extends Model
         string $deletedAt = null
     ) {
         parent::__construct();
+        $this->id = 0;
         $this->createdAt = now();
 
         $this->validate(compact('name'));
