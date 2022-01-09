@@ -10,8 +10,10 @@ use League\Route\Router;
 use Middlewares\BasicAuthentication;
 use Middlewares\ContentType;
 use Mrkrash\Base\App;
+use Mrkrash\Base\Model\ItemDataMapper;
 use Psr\Log\LoggerInterface;
 use RedBeanPHP\ToolBox;
+use function DI\autowire;
 use function DI\create;
 use function DI\factory;
 use function Env\env;
@@ -30,9 +32,10 @@ class DependencyInjection
                 json_decode(env('AUTH_USERS'), true, 512, JSON_THROW_ON_ERROR)
             ),
             ContentType::class => create()->constructor(['json'])->method("errorResponse"),
-            ToolBox::class => factory(ToolBoxFactory::class),
+            ItemDataMapper::class => autowire()->lazy(),
             LoggerInterface::class => factory('\Mrkrash\Base\logger'),
             Router::class => factory(RouterFactory::class),
+            ToolBox::class => factory(ToolBoxFactory::class),
         ]);
 
         if (env('CACHE')) {

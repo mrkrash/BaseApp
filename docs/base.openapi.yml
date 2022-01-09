@@ -89,6 +89,25 @@ components:
         application/json:
           schema:
             $ref: '#/component/schemas/Item'
+    ItemList:
+      description: A list of Items
+      content:
+        application/json:
+          schema:
+            properties:
+              items:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Item'
+              nextPage:
+                type: integer
+                example: 2
+              prevPage:
+                type: integer
+                example: null
+              totalPages:
+                type: integer
+                example: 2
     NotFound:
       description: Resource not found
       content:

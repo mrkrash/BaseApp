@@ -120,14 +120,26 @@ class Item extends Model
          * @var self $new
          */
         $new = (new Instantiator)->instantiate(__CLASS__);
-        $new->name = $data['number'];
+        $new->name = $data['name'];
         $new->description = $data['description'];
-        $new->deletedAt = datetime_from_string($data['deletedAt']);
+        $new->deletedAt = $data['deletedAt'] ? datetime_from_string($data['deletedAt']) : null;
 
         $new->setAssert(Assert::lazy()->tryAll());
         $new->validate($data);
 
         return $new;
+    }
+
+    /**
+     * @throws InvalidDataException
+     */
+    public function updateFromArray(array $data): void
+    {
+        $this->validate($data);
+
+        $this->name = $data['name'] ?? $this->name;
+        $this->description = $data['description'] ?? $this->description;
+        $this->deletedAt = isset($data['deletedAt']) ? datetime_from_string($data['deletedAt']) : $this->deletedAt;
     }
 
     /**
@@ -143,7 +155,7 @@ class Item extends Model
             $this->assert->that($data['description'], 'description')->nullOr()->string()->notBlank();
         }
         if (isset($data['deletedAt'])) {
-            $this->assert->that($data['deletedAt'], 'deletedAt')->date(DATE_FORMAT);
+            $this->assert->that($data['deletedAt'], 'deletedAt')->nullOr()->date(DATE_FORMAT);
         }
 
         try {

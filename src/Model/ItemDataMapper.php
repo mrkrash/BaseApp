@@ -8,9 +8,10 @@ use Doctrine\Instantiator\Exception\ExceptionInterface;
 use Exception;
 use RedBeanPHP\OODB;
 use RedBeanPHP\OODBBean;
+use RedBeanPHP\R;
 use RedBeanPHP\ToolBox;
 
-class ItemMapper
+class ItemDataMapper
 {
     public const DEFAULT_PAGE_SIZE = 20;
 
@@ -25,11 +26,11 @@ class ItemMapper
      * @throws Exception
      * @throws ExceptionInterface
      */
-    public function findOne(int $id): Item
+    public function findOne(int $id): ?Item
     {
         $bean = $this->odb->load('Item', $id);
-        if ($bean === null) {
-            throw new Exception("Data Not Found");
+        if ($bean->getID() == 0) {
+            return null;
         }
 
         return $this->createItemFromBeam($bean);
@@ -42,7 +43,7 @@ class ItemMapper
         $where = ($search) ? " WHERE {$search} " : null;
         $offset = ($page - 1) * $pageSize;
         $limit = $pageSize;
-        $rows = $this->odb->find('Item', "{$where} OFFSET {$offset} LIMIT {$limit}");
+        $rows = $this->odb->find('Item', null," {$where} LIMIT {$limit} OFFSET {$offset}");
 
         $itemFactory = Closure::fromCallable([$this, 'createItemFromBeam']);
 
@@ -53,7 +54,7 @@ class ItemMapper
     {
         Assert::that($pageSize)->greaterThan(0);
         $where = ($search) ? " WHERE {$search} " : null;
-        $count = $this->odb->count('Item', $where);
+        $count = count($this->odb->find('Item', null,$where));
         if ($count <= $pageSize) {
             return 1;
         }
@@ -79,6 +80,11 @@ class ItemMapper
         $this->odb->trash($this->odb->load('Item', $item->getId()));
     }
 
+    public function wipe(): void
+    {
+        $this->odb->wipe('item');
+    }
+
     /**
      * @throws ExceptionInterface|InvalidDataException
      */
@@ -86,8 +92,8 @@ class ItemMapper
     {
         return Item::createFromArray([
             'name' => $bean->name,
-            'description' => $bean->description,
-            'deletedAt' => $bean->deleted_at,
+            'description' => $bean->description ?: null,
+            'deletedAt' => $bean->deleted_at ?: null,
         ])->withId($bean->id)->withCreatedAt($bean->created_at);
     }
 
