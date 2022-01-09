@@ -26,7 +26,7 @@ services:
   docs:
     image: swaggerapi/swagger-ui
     volumes:
-      - ./docs/estimate.openapi.yml:/app/estimate.openapi.yml
+      - ./docs/base.openapi.yml:/app/base.openapi.yml
     environment:
       - LAYOUT=BaseLayout
-      - SWAGGER_JSON=/app/estimate.openapi.yml
+      - SWAGGER_JSON=/app/base.openapi.yml

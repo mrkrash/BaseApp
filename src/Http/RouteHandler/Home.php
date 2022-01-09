@@ -13,7 +13,7 @@ class Home implements RouteHandler
     {
         return new JsonResponse([
             'links' => [
-                'Bases' => $request->getUri() . 'Bases',
+                'Items' => $request->getUri() . 'Items',
                 'docs' => $request->getUri() . 'docs',
             ],
         ]);

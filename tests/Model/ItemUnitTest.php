@@ -3,15 +3,16 @@
 namespace Mrkrash\Base\Model;
 
 use DateTimeImmutable;
+use Doctrine\Instantiator\Exception\ExceptionInterface;
 use Lcobucci\Clock\FrozenClock;
 use PHPUnit\Framework\TestCase;
 use function Mrkrash\Base\now;
 use const Mrkrash\Base\DATE_FORMAT;
 
 /**
- * @covers \Mrkrash\Base\Model\Base
+ * @covers \Mrkrash\Base\Model\Item
  */
-class BaseUnitTest extends TestCase
+class ItemUnitTest extends TestCase
 {
     /**
      * @throws InvalidDataException
@@ -20,7 +21,7 @@ class BaseUnitTest extends TestCase
     {
         $createdAt = new \DateTimeImmutable('@0');
         now(new FrozenClock($createdAt));
-        $item = new Base(1, $createdAt->format(DATE_FORMAT));
+        $item = new Item("Foo");
 
         self::assertEquals($createdAt, $item->getCreatedAt());
     }
@@ -28,24 +29,20 @@ class BaseUnitTest extends TestCase
     /**
      * @dataProvider typeSafeInvalidDataProvider
      *
-     * @param $number
-     * @param $date
-     * @param $validity
-     * @param $discount
-     * @param $accepted
+     * @param $name
+     * @param $description
+     * @param $deletedAt
      * @param array $invalidProperties
      * @return void
      */
     public function testValidation(
-        $number,
-        $date,
-        $validity,
-        $discount,
-        $accepted,
+        $name,
+        $description,
+        $deletedAt,
         array $invalidProperties
     ): void {
         try {
-            new Base($number, $date, $validity, $discount, $accepted);
+            new Item($name, $description, $deletedAt);
         } catch (InvalidDataException $e) {
         }
 
@@ -56,25 +53,21 @@ class BaseUnitTest extends TestCase
     /**
      * @dataProvider invalidDataProvider
      *
-     * @param $number
-     * @param $date
-     * @param $validity
-     * @param $discount
-     * @param $accepted
+     * @param $name
+     * @param $description
+     * @param $deletedAt
      * @param array $invalidProperties
      * @return void
      */
     public function disabledtestValidationFromArray(
-        $number,
-        $date,
-        $validity,
-        $discount,
-        $accepted,
+        $name,
+        $description,
+        $deletedAt,
         array $invalidProperties
     ): void {
         try {
-            Base::createFromArray(compact('number', 'date', 'validity', 'discount', 'accepted'));
-        } catch (InvalidDataException $e) {
+            Item::createFromArray(compact('name', 'description', 'deletedAt'));
+        } catch (InvalidDataException|ExceptionInterface $e) {
         }
 
         self::assertTrue(isset($e));
@@ -84,19 +77,19 @@ class BaseUnitTest extends TestCase
     public function invalidDataProvider(): array
     {
         return [
-            //[0, '', 0, '', '', ['number', 'date', 'accepted']],
-            [-1, $this->createDateTimeString(), 10, '10', $this->createDateTimeString(), ['number']],
-            //[1, '', 10, '10', '', ['date', 'accepted']],
-            //[1, '1970-01-01', 10, '', '', ['accepted']],
-            [0, $this->createDateTimeString(), 1, '', '', ['number', 'accepted']],
+            ['', '', '', ['name', 'description', 'deletedAt']],
+            ['', 'Foo', $this->createDateTimeString(), ['name']],
+            ['Foo', '', '', ['description', 'deletedAt']],
+            ['Foo', 'Bar', '', ['deletedAt']],
+            [' ', 'Foo', '', ['name', 'deletedAt']],
         ];
     }
 
     public function typeSafeInvalidDataProvider(): array
     {
         return [
-            [0, $this->createDateTimeString(), 10, '10', $this->createDateTimeString(), ['number']],
-            [-1, $this->createDateTimeString(), 10, null, $this->createDateTimeString(), ['number']],
+            ['', 'Foo', $this->createDateTimeString(), ['name']],
+            ['', 'Foo', $this->createDateTimeString(), ['name']],
         ];
     }
 
