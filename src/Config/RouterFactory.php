@@ -3,6 +3,7 @@
 namespace Mrkrash\Base\Config;
 
 use Assert\Assert;
+use League\Route\RouteGroup;
 use League\Route\Router as LeagueRouter;
 use League\Route\Strategy\ApplicationStrategy;
 use Middlewares\BasicAuthentication;
@@ -35,6 +36,13 @@ class RouterFactory
         $router->middleware(new JsonPayload());
 
         $router->map('GET', '/', RouteHandler\Home::class);
+        $router->group('/items', function (RouteGroup $route) use ($authMiddleware): void {
+            $route->map('GET', '/', RouteHandler\ItemList::class);
+            $route->map('POST', '/', RouteHandler\ItemCreate::class)->middleware($authMiddleware);
+            $route->map('GET', '/{id}', RouteHandler\ItemRead::class);
+            $route->map('PATCH', '/{id}', RouteHandler\ItemUpdate::class)->middleware($authMiddleware);
+            $route->map('DELETE', '/{id}', RouteHandler\ItemDelete::class)->middleware($authMiddleware);
+        });
 
         return $router;
     }

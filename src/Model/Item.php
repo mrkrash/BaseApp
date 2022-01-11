@@ -121,9 +121,10 @@ class Item extends Model
          * @var self $new
          */
         $new = (new Instantiator)->instantiate(__CLASS__);
+        $new->createdAt = now();
         $new->name = $data['name'];
         $new->description = $data['description'];
-        $new->deletedAt = $data['deletedAt'] ? datetime_from_string($data['deletedAt']) : null;
+        $new->deletedAt = isset($data['deletedAt']) ? datetime_from_string($data['deletedAt']) : null;
 
         $new->setAssert(Assert::lazy()->tryAll());
         $new->validate($data);
