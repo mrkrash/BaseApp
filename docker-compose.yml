@@ -22,11 +22,3 @@ services:
       - COMPOSER_CACHE_DIR=/app/var/composer
     env_file:
       - .env
-
-  docs:
-    image: swaggerapi/swagger-ui
-    volumes:
-      - ./docs/base.openapi.yml:/app/base.openapi.yml
-    environment:
-      - LAYOUT=BaseLayout
-      - SWAGGER_JSON=/app/base.openapi.yml
