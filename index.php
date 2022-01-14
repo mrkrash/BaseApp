@@ -10,6 +10,8 @@ use Throwable;
 (static function(): void {
     require __DIR__ . '/vendor/autoload.php';
 
+    set_error_handler('\Mrkrash\Base\php_error_handler');
+
     try {
         $app = App::bootstrap();
         $request = ServerRequestFactory::fromGlobals();
